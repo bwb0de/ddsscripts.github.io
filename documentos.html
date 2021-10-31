@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    </head>
+    <body style="font-size: larger;"; onload=init_state();>
+        <div style="margin-left: 5%; margin-right: 5%;">
+            <h1>Simulador para indicação inicial de documentos do Estudo Social</h1>
+            <div  id="intro">
+                <p style="color: red">Esta ferramenta tem por finalidade auxiliar os estudantes a identificar e reunir as documentações requeridas para avaliação socioeconômica.</p>
+                
+                <p style="color: red"><b>Estas orientações têm caráter preliminar e não substituem a orientação de um profissional</b>, portanto, ainda que o estudante tenha reunido todas as documentações sugeridas aqui, outros documentos poderão ser solicitados a partir da análise das informações apresentadas no formulário do Cadastro Único do SIGAA ou no conteúdo das próprias documentações apresentadas.</p>
+                    
+                <p style="color: red">É responsabilidade do estudante submeter as informações no prazo e acompanhar o resultado do processo, seja pelo email ou pelo sistema.</p>
+                
+                <p style="color: red">As informações apresentadas neste formulário não serão armazenadas em nenhum local e portanto <b>não poderão ser referenciadas como "dados remetidos" ao processo de Estudo Socioeconômico</b>. O <a href='https://sig.unb.br/sigaa/verTelaLogin.do'>SIGAA</a> é o sistema oficialmente vigente, local em que as informações dos estudos, coletadas mediante o Cadastro Único, ficarão oficialmente armazenadas.</p>
+
+                <button style="font-size: large;" onclick=show_form_estudante()>Iniciar</button>
+            </div>
+
+            <div id="form_estudante">
+                <p style="color: red">Apresente algumas informações sobre você...</p>
+
+                <h3>Você é estrangeiro?</h3>
+                    <input type="radio" class="entrangeiro" name="entrangeiro" id="estrangeiro_00">Não<br>
+                    <input type="radio" class="entrangeiro" name="entrangeiro" id="estrangeiro_01">Sim, estrangeiro refugiado<br>
+                    <input type="radio" class="entrangeiro" name="entrangeiro" id="estrangeiro_02">Sim, estrangeiro não-refugiado<br>
+
+                <h3>Você é pessoa com deficiência?</h3>
+                    <input type="radio" class="com_deficiencia" name="com_deficiencia" id="com_deficiencia_00">Não<br>
+                    <input type="radio" class="com_deficiencia" name="com_deficiencia" id="com_deficiencia_01">Sim<br>
+
+                <h3>Seus pais são separados?</h3>
+                    <input type="radio" class="pais_separados" name="pais_separados" id="pais_separados_00">Meus pais não são separados<br>
+                    <input type="radio" class="pais_separados" name="pais_separados" id="pais_separados_01">Meus pais são formalmente separados<br>
+                    <input type="radio" class="pais_separados" name="pais_separados" id="pais_separados_02">Meus pais são informalmente separados<br>
+                    <input type="radio" class="pais_separados" name="pais_separados" id="pais_separados_03">Meus pais nunca foram formalmente casados<br>
+
+                <h3>Você tem idade superior a 24 anos?</h3>
+                    <input type="radio" class="mais_de_24" name="mais_de_24" id="mais_de_24_00">Não<br>
+                    <input type="radio" class="mais_de_24" name="mais_de_24" id="mais_de_24_01">Sim<br>
+
+                <h3>Você recebe pensão alimentícia?</h3>
+                    <input type="radio" class="pa" name="pa" id="pa_00">Não<br>
+                    <input type="radio" class="pa" name="pa" id="pa_01">Sim<br>
+
+
+                <h3>Algum dos seus pais é falecido?</h3>
+                    <input type="radio" class="pais_falecidos" name="pais_falecidos" id="pais_falecidos_00">Não<br>
+                    <input type="radio" class="pais_falecidos" name="pais_falecidos" id="pais_falecidos_01">Sim<br><br>
+                
+
+                <button style="font-size: large;" onclick=push_and_show_form_moradia()>Prosseguir</button>
+            </div>            
+
+            <div id="form_moradia">
+                <p style="color: red">Nesta parte você precisará fornecer informações referentes aos locais de residência dos integrantes do seu grupo familiar.</p>
+
+                <p style="color: red">Preencha as informações dos campos e clique em <b>inserir</b> para registrar estes dados na memória.</p>
+
+                <p style="color: red">Você poderá incluir mais de uma moradia, caso seja necessário, para melhor caracterizar sua situação.</p>
+
+                <p style="color: red">Clique em <b>prosseguir</b> para ir à próxima etapa.</p>
+
+                <h2>Informação sobre as residências do grupo familiar</h2>
+
+                <h3>Identificador:</h3>
+                  <input type="text" name="moradia_id" id="moradia_id" style="width: 30%;" placeholder="Endereço"><br>
+
+                <h3>Situação do imóvel de moradia:</h3>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_00">Próprio quitado<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_01">Casa do Estudante Universitário<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_02">Própria em aquisição<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_03">Cedido<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_04">Alugado/república/pensionato<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_05">De favor (morando com pessoas que não fazem parte do grupo familiar)<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_06">Assentamento<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_07">Comunidade quilombola<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_12">Aldeia indígena<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_08">Ocupação irregular<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_09">Moradia com risco de remoção sub judice<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_10">Sem moradia, em situação de rua<br>
+                    <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_11">Outra situação de moradia<br><br>
+
+
+                <button style="font-size: large;" onclick=push_moradia()>Inserir</button> <button id="btn1" style="font-size: large;" onclick=show_form_integrantes_ex()>Prosseguir</button>
+            </div>
+    
+            <div id="form_integrantes_explicacao">
+                <div>
+                    <p style="color: red">A partir deste ponto você deverá informar os dados sobre todos os integrantes do grupo familiar, <b>inclusive você</b>.</p>
+
+                    <p style="color: red">O grupo familiar é a sua rede primária, em geral é constituído pelas pessoas às quais você recorre ante as intercorrências da vida social. Via de regra é constituído pelos genitores ou familia adotiva, que, em geral, têm obrigações legais de oferecer a proteção primária, mas nem sempre é assim. Dessa forma, o grupo familiar é entendido como a unidade composta por uma ou mais pessoas, eventualmente ampliada por outras pessoas que contribuam para o rendimento ou tenham as despesas atendidas por aquela unidade familiar, todas moradoras em um mesmo domicílio (incluindo o/a estudante que sendo de outro estado reside em Brasília em razão dos estudos), desde que comprovada mediante documentação.</p>
+                    
+                    <p style="color: red">Nas situações em que o estudante mora “de favor” entende-se que, em geral, a família que o acolhe não é seu grupo familiar. Da mesma forma, parentes que não compõem o grupo familiar do estudante mas que residem de favor em sua casa, não deverão ser considerados na composição do grupo familiar para efeito do estudo socioeconômico, salvo situações específicas: tempo em que o estudante ou o parente reside no domicílio, dependência econômica, dentre outras.</p>
+                    
+                    <p style="color: red">A composição do grupo familiar e a situação particular de cada um de seus integrantes é fundamental para definir quais documentos serão necessários para o correto encaminhamento do Estudo Social. Portanto, quaisquer dúvidas em relação à sua composição devem ser esclarecida pelo estudante por meio de entrevista com Assistente Social, especialmente nos casos de fragilização ou rompimento de vínculos. A depender da complexidade da situação apresentada na entrevista, o caso poderá ser discutido em comissões colegiadas e multidisciplinares compostas por Assistentes Sociais e Psicólogos. Em face da pandemia de COVID-19, o agendamento da entrevista (atendimento virtual) poderá ser feito mediante solicitação no endereço de email <b>sps@unb.br</b></p>
+
+                    <p style="color: red">Preencha as informações dos campos e clique em <b>inserir</b> para registrar estes dados na memória.</p>
+
+                    <p style="color: red">Você poderá incluir tantos integrantes quanto necessário.</p>
+
+                    <p style="color: red">Clique em <b>prosseguir</b> para iniciar a inclusão dos integrantes do grupo familiar.</p>
+                </div>
+                <button id="btn1_ex" style="font-size: large;" onclick=show_form_integrantes()>Prosseguir</button>
+            </div>
+
+            <div id="form_integrantes">
+                <div style="position: absolute; width: 50%; margin-left: 45%; margin-top: -15px;" id="info"></div>
+                <div>
+                    <h3>Identificação:</h3>
+                    <input type="text" name="nome" id="nome" style="width: 30%;" placeholder="Nome do integrante familiar"><br>
+                    <input type="text" name="dn" id="dn" style="width: 30%;" maxlength="10" placeholder="Data de nascimento: DD/MM/AAAA" onkeyup=dt_mask()><br>
+                    
+                    <h3>Natureza de renda:</h3>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_00">Trabalho formal, servidor público efetivo<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_01">Aposentadoria<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_02">Rendimentos: aluguel, participação em lucros<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_03">Servidor público temporário/comissão<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_04">Microempreendedor<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_21">Atividade produção agrícola<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_22">Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_05">Trabalho formal, setor privado<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_06">Pensão alimentícia formal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_07">Pensão por morte, proveniente de pai/mãe<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_08">Pensão por morte, proveniente de cônjuge<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_09">Benefício do INSS<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_10">Estágio remunerado ou jovem aprendiz<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_11">Bolsa Acadêmica (PIBIC, PIBID, PIBEX…)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_12">Bolsa de pós-graduação<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_13">Bolsa da Assistência Estudantil (Auxílio Moradia, Auxílio Socioeconômico…)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_14">Pensão alimentícia informal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_15">Benefício da Assistência Social<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_16">Trabalho autônomo ou informal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_17">Poupança/Economias pessoais<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_18">Seguro-desemprego<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_20">Ajuda de terceiros (pessoas de fora do grupo familiar)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_19">Não possui renda proveniente de trabalho formal ou informal<br>
+
+                    <h3>Declarara imposto de renda IRPF:</h3>
+                    <input type="radio" class="irpf" name="irpf" id="irpf_00">Não<br>
+                    <input type="radio" class="irpf" name="irpf" id="irpf_01">Sim<br>
+                    
+
+                    <h3>Situação de saúde:</h3>
+                    <input type="radio" class="saude" name="saude" id="saude_00">Sem agravo<br>
+                    <input type="radio" class="saude" name="saude" id="saude_01">Doença crônica<br>
+                    <input type="radio" class="saude" name="saude" id="saude_02">Doença grave<br>
+                    <input type="radio" class="saude" name="saude" id="saude_03">Deficiência<br><br>
+                    
+                    <button style="font-size: large;" onclick=push_family_member()>Inserir</button> <button id="btn2" style="font-size: large;" onclick=show_simulation_result()>Prosseguir</button>
+                </div>
+
+            </div>
+            
+            
+        <div id="simulation_result" style="margin-right: 5%;">
+            <h2>Resultado da simulação</h2>
+        </div>
+
+
+        </div>
+        
+        <script src="documentos.js"></script>
+        <script src="moment.min.js"></script>
+    </body>
+</html>

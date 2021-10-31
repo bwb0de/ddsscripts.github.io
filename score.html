@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    </head>
+    <body style="">
+        <div style="margin-left: 5%;">
+            <h1>Script de pontuação: natureza da fonte de renda e agravos de saúde</h1>
+        </div>
+        <div style="position: absolute; width: 50%; margin-top: 5%; margin-left: 45%; margin-top: -15px;" id="info"></div>
+        <div style="margin-left: 5%;">
+            
+            <h3>Identificação:</h3>
+            <input type="text" name="nome" id="nome" style="width: 30%;" placeholder="Nome ou vínculo com o estudante"><br>
+            <input type="text" name="dn" id="dn" style="width: 30%;" maxlength="10" placeholder="Data de nascimento: DD/MM/AAAA" onkeyup=dt_mask()><br>
+            <h3>Situação de renda:</h3>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_00">Trabalho formal, servidor público efetivo<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_01">Aposentadoria<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_02">Rendimentos: aluguel, participação em lucros<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_03">Servidor público temporário/comissão<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_04">Microempreendedor<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_05">Trabalho formal, setor privado<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_06">Pensão alimentícia formal<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_07">Pensão por morte, proveniente de pai/mãe<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_08">Pensão por morte, proveniente de cônjuge<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_09">Benefício do INSS<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_10">Estágio remunerado ou jovem aprendiz<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_11">Bolsa Acadêmica (PIBIC, PIBID, PIBEX…)<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_12">Bolsa de pós-graduação<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_13">Bolsa da Assistência Estudantil (Auxílio Moradia, Auxílio Socioeconômico…)<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_14">Pensão alimentícia informal<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_15">Benefício da Assistência Social<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_16">Trabalho autônomo ou informal<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_17">Poupança/Economias pessoais<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_18">Seguro-desemprego<br>
+            <input type="radio" class="renda" name="tipo_vinculo" id="tipo_vinculo_19">Não ter renda<br>
+            <h3>Situação de saúde:</h3>
+            <input type="checkbox" class="saude" name="saude" id="saude_00">Sem agravo<br>
+            <input type="checkbox" class="saude" name="saude" id="saude_01">Doença crônica<br>
+            <input type="checkbox" class="saude" name="saude" id="saude_02">Doença grave<br>
+            <input type="checkbox" class="saude" name="saude" id="saude_03">Deficiência<br><br>
+            <button onclick=push_family_member()>Inserir</button>
+        </div>
+        
+        <script src="score.js"></script>
+        <script src="moment.min.js"></script>
+    </body>
+</html>
