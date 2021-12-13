@@ -174,6 +174,8 @@ function push_and_show_form_moradia() {
     pensao_alimenticia = get_selected_op('pa', translator_pa).split(';')[0];
 
 
+    doc_info_estudante.push("Apresentar RG (frente e verso) e CPF.");
+
     //Estrangeiro
     if (estrangeiro == "Sim, estrangeiro refugiado" ) {
         doc_info_estudante.push("Relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
@@ -354,11 +356,11 @@ function family_member_documentation(member) {
         observacao_cpf = true;
     } else {
         doc_info_grupo_familiar[member.nome].push("Apresentar RG (frente e verso) e CPF.");
-        doc_info_grupo_familiar[member.nome].push("Apresentar carteira de trabalho: página da foto, qualificação civil e páginas dos 'contratos de trabalho' (último registro de trabalho e a próxima página em branco) se não possuí, apresentar declaração de não possuí-la (modelo no edital).");
+        //doc_info_grupo_familiar[member.nome].push("Apresentar carteira de trabalho: página da foto, qualificação civil e páginas dos 'contratos de trabalho' (último registro de trabalho e a próxima página em branco) se não possuí, apresentar declaração de não possuí-la (modelo no edital).");
         if ( member.irpf == "Sim" ) {
-            doc_info_grupo_familiar[member.nome].push("Anexar o recibo e a declaração de imposto de renda completa (todas as páginas)")
+            //doc_info_grupo_familiar[member.nome].push("Anexar o recibo e a declaração de imposto de renda completa (todas as páginas)")
         } else {
-            doc_info_grupo_familiar[member.nome].push("Acessar a página de <a href='https://servicos.receita.fazenda.gov.br/Servicos/ConsRest/Atual.app/paginas/index.asp' target='_blank'>Consulta de Restituição de IRPF, no site da Receita Federal</a> e preencher os dados solicitados referente ao último ano/ exercício vigente. Anexar o print da tela com a mensagem “<i>sua declaração não consta da base de dados da receita federal</i>")
+            //doc_info_grupo_familiar[member.nome].push("Acessar a página de <a href='https://servicos.receita.fazenda.gov.br/Servicos/ConsRest/Atual.app/paginas/index.asp' target='_blank'>Consulta de Restituição de IRPF, no site da Receita Federal</a> e preencher os dados solicitados referente ao último ano/ exercício vigente. Anexar o print da tela com a mensagem “<i>sua declaração não consta da base de dados da receita federal</i>")
         }
     }
     member.renda = member.renda.split("; ")
