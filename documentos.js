@@ -435,8 +435,7 @@ function family_member_documentation(member) {
     }
     
 
-
-    if ( member.saude != "Sem agravo" ) {
+    if ( member.saude.split(";")[0] != "Sem agravo" ) {
         doc_info_grupo_familiar[member.nome].push("Relatório ou laudo médico ou psicológico, com o número da CID")
     }
 
