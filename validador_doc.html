@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link href="tailwind.min.css" rel="stylesheet">-->
+    <title>Validador de Documentos</title>
+    <style>
+    </style>
+</head>
+<body>
+    <body style="font-size: larger; background-color: beige"; onload=init_state();>
+        <div style="margin-left: 5%; margin-right: 5%;">
+            <h1 class="font-serif font-semibold text-2xl text-red-800 py-8">Validador de documentos do Estudo Social</h1>
+
+            <div id="validacao_documentos_1">
+                <h2>Pendências de integrantes do grupo familiar</h2>
+                <input type="text" name="pessoa" id="pessoa" style="width: 30%;" placeholder="Nome do integrante do grupo familiar"><br><br>
+
+                <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_00">Orientações gerais (em geral quando <b style="color: red">nenhum documento foi anexado</b>)<br>
+                <div id="nfo_orientacoes" class="text-sm" style="margin-left: 2%;">
+                    <table>
+                        <tr>
+                            <td style="vertical-align: top;" ><input type="checkbox" class="orientacoes_detail" name="orientacoes_detail" id="orientacoes_op0" onchange="register_unregister_hooked_item(this, orientacoes, 'orientacao_geral_00')"></td>
+                            <td><span id="orientacao_geral_00">Nenhum documento relativo a esta pessoa foi anexado.</span></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;" ><input type="checkbox" class="orientacoes_detail" name="orientacoes_detail" id="orientacoes_op1" onchange="register_unregister_hooked_item(this, orientacoes, 'orientacao_geral_01')"></td>
+                            <td><span id="orientacao_geral_01">O Estudo Social demanda a anexação de documentos que comprovem a identidade, a situação de trabalho e renda entre outros aspectos declarados no formulário do estudo.  Leia o anexo 1 do Edital e apresente a documentação indicada conforme a situação da pessoa em questão, em caso de dúvidas você pode fazer uso do Simulador de Documentos ou entrar em contato com a equipe das assistentes sociais pelo email <b>sps@unb.br</b>.</span></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;" ><input type="checkbox" class="orientacoes_detail" name="orientacoes_detail" id="orientacoes_op2" onchange="register_unregister_hooked_item(this, orientacoes, 'orientacao_geral_02')"></td>
+                            <td><span id="orientacao_geral_02">Caso você identifique erros ou instabilidades no funcionamento do sistema, recomendamos o registro mediante fotografia ou <i>print</i> da tela. Comunique a falha o quanto antes à DDS pelo email: <b>dds@unb.br</b>.</span></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;" ><input type="checkbox" class="orientacoes_detail" name="orientacoes_detail" id="orientacoes_op3" onchange="register_unregister_hooked_item(this, orientacoes, 'orientacao_geral_03')"></td>
+                            <td><span id="orientacao_geral_03">Caso julgue necessário, você pode solicitar atendimento virtual pelo email sps@unb.br.</span></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;" ><input type="checkbox" class="orientacoes_detail" name="orientacoes_detail" id="orientacoes_op4" onchange="register_unregister_hooked_item(this, orientacoes, 'orientacao_geral_04')"></td>
+                            <td><span id="orientacao_geral_04">O estudante é inteiramente responsável pelo acompanhamento e comunicação de problemas em conformidade de prazos estabelecidos no edital. Mantenha o seu email atualizado no Sistema da Universidade e acompanhe periodicamente o andamento do seu estudo enquanto o processo não for concluído.</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="text" name="orientacoes_detail_obs" id="orientacoes_detail_obs" style="width: 100%;" onchange="update_observation(this, orientacoes, 'orientacoes_detail_obs_old')" placeholder="Orientações complementares"></td>
+                        </tr>
+                    </table>
+                    <span id="orientacoes_detail_obs_old" hidden></span><br>
+                </div>
+
+
+                <h3>Documentos de identificação:</h3>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_01">CPF<br>
+                    <div id="nfo_cpf" class="text-sm" style="margin-left: 2%;">
+                        <input type="checkbox" class="cpf_detail" name="cpf_detail" id="cpf_op1" onchange="register_unregister_hooked_item(this, cpf, 'inacessivel')"><span id="inacessivel">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.</span><br>
+                        <input type="checkbox" class="cpf_detail" name="cpf_detail" id="cpf_op2" onchange="register_unregister_hooked_item(this, cpf, 'ilegivel')"><span id="ilegivel">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.</span><br>
+                        <input type="checkbox" class="cpf_detail" name="cpf_detail" id="cpf_op3" onchange="register_unregister_hooked_item(this, cpf, 'incompleto_cortado')"><span id="incompleto_cortado">Incompleto, imagem cortada ou com informações parciais.</span><br>
+                        <input type="checkbox" class="cpf_detail" name="cpf_detail" id="cpf_op4" onchange="register_unregister_hooked_item(this, cpf, 'incorreto_nao_corresponde')"><span id="incorreto_nao_corresponde">Incorreto, a documentação apresentada não corresponde à solicitada.</span><br>
+                        <input type="checkbox" class="cpf_detail" name="cpf_detail" id="cpf_op5" onchange="register_unregister_hooked_item(this, cpf, 'pendente')"><span id="pendente">Pendente, não foi anexado.</span><br>
+                        <input type="text" name="cpf_detail_obs" id="cpf_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, cpf, 'cpf_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="cpf_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_02">Certidão de nascimento<br>
+                    <div id="nfo_cert_nas" class="text-sm" style="margin-left: 2%;">
+                        <input type="checkbox" class="cert_nas_detail" name="cert_nas_detail" id="cert_nas_op1" onchange="register_unregister_hooked_item(this, cert_nas, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="cert_nas_detail" name="cert_nas_detail" id="cert_nas_op2" onchange="register_unregister_hooked_item(this, cert_nas, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="cert_nas_detail" name="cert_nas_detail" id="cert_nas_op3" onchange="register_unregister_hooked_item(this, cert_nas, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="cert_nas_detail" name="cert_nas_detail" id="cert_nas_op4" onchange="register_unregister_hooked_item(this, cert_nas, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="cert_nas_detail" name="cert_nas_detail" id="cert_nas_op5" onchange="register_unregister_hooked_item(this, cert_nas, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="cert_nas_detail_obs" id="cert_nas_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, cert_nas, 'cert_nas_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="cert_nas_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_03">RG<br>
+                    <div id="nfo_rg" style="margin-left: 2%;">
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op1" onchange="register_unregister_hooked_item(this, rg, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op2" onchange="register_unregister_hooked_item(this, rg, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op3" onchange="register_unregister_hooked_item(this, rg, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op4" onchange="register_unregister_hooked_item(this, rg, 'incompleto_rg_foto')"><span id="incompleto_rg_foto">Incompleto, pendente apresentar a parte da frente do documento (<b>foto</b>).</span><br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op5" onchange="register_unregister_hooked_item(this, rg, 'incompleto_rg_info')"><span id="incompleto_rg_info">Incompleto, pendente apresentar a parte de trás do documento (<b>informações</b>).</span><br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op7" onchange="register_unregister_hooked_item(this, rg, 'incorreto_nao_corresponde_rg')"><span id="incorreto_nao_corresponde_rg">Incorreto, a documentação apresentada não corresponde à solicitada. Anexar frente e verso do RG.</span><br>
+                        <input type="checkbox" class="rg_detail" name="rg_detail" id="rg_op8" onchange="register_unregister_hooked_item(this, rg, 'pendente_rg')"><span id="pendente_rg">Pendente, não foi anexado. Anexar frente e verso do RG, na ausência apresentar outro documento de identificação com validade nacional, como a CNH...</span><br>
+                        <input type="text" name="rg_detail_obs" id="rg_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, rg, 'rg_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="rg_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+
+                <h3>Proveniência (UF e sistema de ensino ::: PME-G):</h3>
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_04">Histórico de Ensino Médio<br>
+                    <div id="nfo_ensino_medio" style="margin-left: 2%;">
+                        <input type="checkbox" class="ensino_medio_detail" name="ensino_medio_detail" id="ensino_medio_op1" onchange="register_unregister_hooked_item(this, ensino_medio, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="ensino_medio_detail" name="ensino_medio_detail" id="ensino_medio_op2" onchange="register_unregister_hooked_item(this, ensino_medio, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="ensino_medio_detail" name="ensino_medio_detail" id="ensino_medio_op3" onchange="register_unregister_hooked_item(this, ensino_medio, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="ensino_medio_detail" name="ensino_medio_detail" id="ensino_medio_op4" onchange="register_unregister_hooked_item(this, ensino_medio, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="ensino_medio_detail" name="ensino_medio_detail" id="ensino_medio_op5" onchange="register_unregister_hooked_item(this, ensino_medio, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="ensino_medio_detail_obs" id="ensino_medio_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, ensino_medio, 'ensino_medio_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="ensino_medio_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                <h3>Situação de trabalho e renda:</h3>
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_06"><b style="color: red;">Declaração de renda?</b><br>
+                    <div id="nfo_dec_renda" style="margin-left: 2%;">
+                        <table>
+                            <tr>
+                                <td style="vertical-align: top;" ><input type="checkbox" class="dec_renda_detail" name="dec_renda_detail" id="dec_renda_op1" onchange="register_unregister_hooked_item(this, dec_renda, 'renda_info')"></td>
+                                <td><span id="renda_info">Nenhuma declaração de existência ou inexistência de renda foi vinculada a essa pessoa. Qual a situação de renda dela? Apresentar documento que informe a situação de renda em conformidade com as previsões do anexo 1 do Edital. Caso a situação não se enquadre em nenhuma das descritas, entrar em contato com a equipe técnica das assistentes sociais pelo email <b>sps@unb.br</b>.</span></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" name="dec_renda_detail_obs" id="dec_renda_detail_obs" style="width: 100%;" onchange="update_observation(this, dec_renda, 'dec_renda_detail_obs_old')" placeholder="Orientações complementares"></td>
+                            </tr>
+                        </table>
+                        <span id="dec_renda_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_05">Carteira de Trabalho<br>
+                    <div id="nfo_ctps" style="margin-left: 2%;">
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op1" onchange="register_unregister_hooked_item(this, ctps, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op2" onchange="register_unregister_hooked_item(this, ctps, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op3" onchange="register_unregister_hooked_item(this, ctps, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op4" onchange="register_unregister_hooked_item(this, ctps, 'incompleto_ctps_ct')"><span id="incompleto_ctps_ct">Incompleto, pendente apresentar a seção referente aos <b>contratos de trabalho</b>. Apresentar a imagem referente ao último registro de emprego mais a página seguinte, sem registro. Caso não haja registros nessa carteira de trabalho, apresentar as primeiras páginas da seção contratos de trabalho.</span><br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op5" onchange="register_unregister_hooked_item(this, ctps, 'incompleto_ctps_foto')"><span id="incompleto_ctps_foto">Incompleto, pendente página da <b>foto</b>.</span><br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op6" onchange="register_unregister_hooked_item(this, ctps, 'incompleto_ctps_info')"><span id="incompleto_ctps_info">Incompleto, pendente página das <b>informações pessoais</b> (qualificação civil).</span><br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op7" onchange="register_unregister_hooked_item(this, ctps, 'incorreto_nao_corresponde_ctps')"><span id="incorreto_nao_corresponde_ctps">Incorreto, a documentação apresentada não corresponde à solicitada. Anexar a página da foto, a página de "qualificação civil" e as páginas da seção "contratos de trabalho": a imagem referente ao último registro de emprego mais a página seguinte, sem registro. Caso não haja registros nessa carteira de trabalho, apresentar as primeiras páginas da seção "contratos de trabalho".</span><br>
+                        <input type="checkbox" class="ctps_detail" name="ctps_detail" id="ctps_op8" onchange="register_unregister_hooked_item(this, ctps, 'pendente_ctps')"><span id="pendente_ctps">Pendente, não foi anexado. Anexar a página da foto, a página de "qualificação civil" e as páginas da seção "contratos de trabalho": a imagem referente ao último registro de emprego mais a página seguinte, sem registro. Caso não haja registros nessa carteira de trabalho, apresentar as primeiras páginas da seção "contratos de trabalho".</span><br>
+                        <input type="text" name="ctps_detail_obs" id="ctps_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, ctps, 'ctps_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="ctps_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_07">Contracheque<br>
+                    <div id="nfo_contracheque" style="margin-left: 2%;">
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op1" onchange="register_unregister_hooked_item(this, contracheque, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op2" onchange="register_unregister_hooked_item(this, contracheque, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op3" onchange="register_unregister_hooked_item(this, contracheque, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op4" onchange="register_unregister_hooked_item(this, contracheque, 'contracheque_info')"><span id="contracheque_info">Incompleto, o documento apresentado não apresenta todas as informações necessárias à análise.</span><br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op5" onchange="register_unregister_hooked_item(this, contracheque, 'contracheque_3meses')"><span id="contracheque_3meses">Incompleto, necessário apresentar os contracheques referentes aos <b>três últimos meses</b>. No caso da impossibilidade de apresentar este documento pelo período solicitado, comunicar prontamente os motivos à profissional responsável pela avaliação do seu estudo.</span><br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op6" onchange="register_unregister_hooked_item(this, contracheque, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="contracheque_detail" name="contracheque_detail" id="contracheque_op7" onchange="register_unregister_hooked_item(this, contracheque, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="contracheque_detail_obs" id="contracheque_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, contracheque, 'contracheque_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="contracheque_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_08">Extrato bancário<br>
+                    <div id="nfo_extrato" style="margin-left: 2%;">
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op1" onchange="register_unregister_hooked_item(this, extrato, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada<br>
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op2" onchange="register_unregister_hooked_item(this, extrato, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op3" onchange="register_unregister_hooked_item(this, extrato, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op4" onchange="register_unregister_hooked_item(this, extrato, 'incompleto_extrato_titular')"><span id="incompleto_extrato_titular">Incompleto, o extrato apresentado não possui informações sobre o <b>titular da conta</b>, anexar outra versão do extrato com todas as informações solicitadas.</span><br>
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op5" onchange="register_unregister_hooked_item(this, extrato, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="extrato_detail" name="extrato_detail" id="extrato_op6" onchange="register_unregister_hooked_item(this, extrato, 'pendente_extrato')"><span id="pendente_extrato">Pendente, não foi anexado. Caso esta pessoa não possua conta bancária, apresentar a declaração de inesistência de relação com o sistema financeiro, conforme as orientações do Edital. Se tiver dificuldades, entrar em contato com a assistente social responsável pelo seu estudo ou encaminhar mensagem para <b>sps@unb.br</b></span><br>
+                        <input type="text" name="extrato_detail_obs" id="extrato_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, extrato, 'extrato_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="extrato_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_09">Declaração renda informal<br>
+                    <div id="nfo_renda_informal" style="margin-left: 2%;">
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op1" onchange="register_unregister_hooked_item(this, renda_informal, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op2" onchange="register_unregister_hooked_item(this, renda_informal, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op3" onchange="register_unregister_hooked_item(this, renda_informal, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op4" onchange="register_unregister_hooked_item(this, renda_informal, 'incompleto_dec_assinatura')"><span id="incompleto_dec_assinatura">Incompleto, pendente a assinatura do declarante.</span><br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op5" onchange="register_unregister_hooked_item(this, renda_informal, 'incompleto_dec_data')"><span id="incompleto_dec_data">Incompleto, pendente o registro da data de assinatura.</span><br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op6" onchange="register_unregister_hooked_item(this, renda_informal, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="renda_informal_detail" name="renda_informal_detail" id="renda_informal_op7" onchange="register_unregister_hooked_item(this, renda_informal, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="renda_informal_detail_obs" id="renda_informal_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, renda_informal, 'renda_informal_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="renda_informal_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_10">Comprovante de benefício do INSS<br>
+                    <div id="nfo_INSS" style="margin-left: 2%;">
+                        <input type="checkbox" class="INSS_detail" name="INSS_detail" id="INSS_op1" onchange="register_unregister_hooked_item(this, INSS, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="INSS_detail" name="INSS_detail" id="INSS_op2" onchange="register_unregister_hooked_item(this, INSS, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="INSS_detail" name="INSS_detail" id="INSS_op3" onchange="register_unregister_hooked_item(this, INSS, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="INSS_detail" name="INSS_detail" id="INSS_op4" onchange="register_unregister_hooked_item(this, INSS, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="INSS_detail" name="INSS_detail" id="INSS_op5" onchange="register_unregister_hooked_item(this, INSS, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="INSS_detail_obs" id="INSS_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, INSS, 'INSS_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="INSS_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_11">Comprovante de benefício da Assistência Social<br>
+                    <div id="nfo_assistencia_social" style="margin-left: 2%;">
+                        <input type="checkbox" class="assistencia_social_detail" name="assistencia_social_detail" id="assistencia_social_op1" onchange="register_unregister_hooked_item(this, assistencia_social, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="assistencia_social_detail" name="assistencia_social_detail" id="assistencia_social_op2" onchange="register_unregister_hooked_item(this, assistencia_social, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="assistencia_social_detail" name="assistencia_social_detail" id="assistencia_social_op3" onchange="register_unregister_hooked_item(this, assistencia_social, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="assistencia_social_detail" name="assistencia_social_detail" id="assistencia_social_op4" onchange="register_unregister_hooked_item(this, assistencia_social, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="assistencia_social_detail" name="assistencia_social_detail" id="assistencia_social_op5" onchange="register_unregister_hooked_item(this, assistencia_social, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="assistencia_social_detail_obs" id="assistencia_social_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, assistencia_social, 'assistencia_social_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="assistencia_social_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_12">Declaração de Imposto de Renda<br>
+                    <div id="nfo_irpf" style="margin-left: 2%;">
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op1" onchange="register_unregister_hooked_item(this, irpf, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op2" onchange="register_unregister_hooked_item(this, irpf, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op3" onchange="register_unregister_hooked_item(this, irpf, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op4" onchange="register_unregister_hooked_item(this, irpf, 'incompleto_irpf_recibo')"><span id="incompleto_irpf_recibo">Incompleto, pendente apresentar o recibo de entrega da declaração.</span><br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op5" onchange="register_unregister_hooked_item(this, irpf, 'incompleto_irpf_parcial')"><span id="incompleto_irpf_parcial">Incompleto, declaração parcialmente apresentada. Você deve anexar a Declaração de Imposto de Renda na integra, junto com o recibo de entrega.</span><br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op6" onchange="register_unregister_hooked_item(this, irpf, 'incorreto_nao_corresponde_irpf')"><span id="incorreto_nao_corresponde_irpf">Incorreto, a documentação apresentada não corresponde à solicitada. Você deve anexar a Declaração de Imposto de Renda na integra, junto com o recibo de entrega.</span><br>
+                        <input type="checkbox" class="irpf_detail" name="irpf_detail" id="irpf_op7" onchange="register_unregister_hooked_item(this, irpf, 'pendente')">Pendente, não foi anexado. Enviar a Declaração de Imposto de Renda na integra, junto com o recibo de entrega.<br>
+                        <input type="text" name="irpf_detail_obs" id="irpf_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, irpf, 'irpf_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="irpf_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                <h3>Situação de saúde:</h3>
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento" name="tipo_de_documento" id="tipo_de_documento_13">Documentação comprobatória de agravos de saúde ou deficiência<br>
+                    <div id="nfo_saude" style="margin-left: 2%;">
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op1" onchange="register_unregister_hooked_item(this, saude, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op2" onchange="register_unregister_hooked_item(this, saude, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op3" onchange="register_unregister_hooked_item(this, saude, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op3" onchange="register_unregister_hooked_item(this, saude, 'incompleto_saude_sem_cid')"><span id="incompleto_saude_sem_cid">Incompleto, documento apresentado não informa o CID.</span><br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op3" onchange="register_unregister_hooked_item(this, saude, 'incompleto_saude_sem_info')"><span id="incompleto_saude_sem_info">Incompleto, documento apresentado não apresenta informações sobre o agravo de saúde declarado no estudo.</span><br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op4" onchange="register_unregister_hooked_item(this, saude, 'incorreto_deficiencia')"><span id="incorreto_deficiencia">Incorreto, a documentação apresentada é insuficiente para caracterizar a situação de deficiência declarada no estudo.</span><br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op4" onchange="register_unregister_hooked_item(this, saude, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à solicitada.<br>
+                        <input type="checkbox" class="saude_detail" name="saude_detail" id="saude_op5" onchange="register_unregister_hooked_item(this, saude, 'pendente')">Pendente, não foi anexado.<br>
+                        <input type="text" name="saude_detail_obs" id="saude_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, saude, 'saude_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="saude_detail_obs_old" hidden></span>
+                    </div><br><br>
+
+
+                <button class="bg-green-800 shadow-lg px-8 py-2 b-2 rounded-lg text-white text-lg hover:bg-green-200 hover:text-green-700" style="font-size: large;" onclick=push_pendencias()>Inserir</button> <button id="btn1" class="bg-green-800 shadow-lg px-8 py-2 b-2 rounded-lg text-white text-lg hover:bg-green-200 hover:text-green-700" style="font-size: large;" onclick=show_moradia_form()>Validar documentação de moradia</button>
+            </div>
+            
+            <div id="separator" style="height: 500px;"></div>
+
+            <div id="validacao_documentos_2">
+                <h2>Pendências relativas às residencias declaradas no estudo</h2>
+                
+                    <input type="text" name="moradia" id="moradia" style="width: 30%;" placeholder="Identificador/endereço moradia"><br><br>
+                
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento_moradia" name="tipo_de_documento_moradia" id="tipo_de_documento_moradia_01">Comprovante de residência (IPTU, Termo de Posse, documento análogo...)<br>
+                    <div id="nfo_comprovante_residencia" style="margin-left: 2%;">
+                        <input type="checkbox" class="comprovante_residencia_detail" name="comprovante_residencia_detail" id="comprovante_residencia_op1" onchange="register_unregister_hooked_item(this, comprovante_residencia, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="comprovante_residencia_detail" name="comprovante_residencia_detail" id="comprovante_residencia_op2" onchange="register_unregister_hooked_item(this, comprovante_residencia, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="comprovante_residencia_detail" name="comprovante_residencia_detail" id="comprovante_residencia_op3" onchange="register_unregister_hooked_item(this, comprovante_residencia, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="comprovante_residencia_detail" name="comprovante_residencia_detail" id="comprovante_residencia_op4" onchange="register_unregister_hooked_item(this, comprovante_residencia, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à situação declarada.<br>
+                        <input type="checkbox" class="comprovante_residencia_detail" name="comprovante_residencia_detail" id="comprovante_residencia_op5" onchange="register_unregister_hooked_item(this, comprovante_residencia, 'pendente')">Pendente, este documento não foi anexado.<br>
+                        <input type="text" name="comprovante_residencia_detail_obs" id="comprovante_residencia_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, comprovante_residencia, 'comprovante_residencia_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="comprovante_residencia_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento_moradia" name="tipo_de_documento_moradia" id="tipo_de_documento_moradia_02">Contrato formal de aluguel<br>
+                    <div id="nfo_aluguel" style="margin-left: 2%;">
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op1" onchange="register_unregister_hooked_item(this, aluguel, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op2" onchange="register_unregister_hooked_item(this, aluguel, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op3" onchange="register_unregister_hooked_item(this, aluguel, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op4" onchange="register_unregister_hooked_item(this, aluguel, 'incompleto_aluguel_assinatura')"><span id="incompleto_aluguel_assinatura">Incompleto, pendente as assinaturas dos declarantes, partes no contrato.</span><br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op5" onchange="register_unregister_hooked_item(this, aluguel, 'incompleto_aluguel_data')"><span id="incompleto_aluguel_data">Incompleto, pendente o registro da data de assinatura.</span><br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op6" onchange="register_unregister_hooked_item(this, aluguel, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à situação declarada.<br>
+                        <input type="checkbox" class="aluguel_detail" name="aluguel_detail" id="aluguel_op7" onchange="register_unregister_hooked_item(this, aluguel, 'pendente')">Pendente, este documento não foi anexado.<br>
+                        <input type="text" name="aluguel_detail_obs" id="aluguel_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, aluguel, 'aluguel_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="aluguel_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento_moradia" name="tipo_de_documento_moradia" id="tipo_de_documento_moradia_03">Declaração de aluguel informal<br>
+                    <div id="nfo_alugel_informal" style="margin-left: 2%;">
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op1" onchange="register_unregister_hooked_item(this, aluguel_informal, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op2" onchange="register_unregister_hooked_item(this, aluguel_informal, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op3" onchange="register_unregister_hooked_item(this, aluguel_informal, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op4" onchange="register_unregister_hooked_item(this, aluguel_informal, 'incompleto_aluguel_informal_assinatura')"><span id="incompleto_aluguel_informal_assinatura">Incompleto, pendente a(s) assinatura(s) do(s) declarante(s).</span><br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op5" onchange="register_unregister_hooked_item(this, aluguel_informal, 'incompleto_aluguel_data')">Incompleto, pendente o registro da data de assinatura.<br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op6" onchange="register_unregister_hooked_item(this, aluguel_informal, 'incompleto_aluguel_informal_proprietario')"><span id="incompleto_aluguel_informal_proprietario">Incompleto, pendente o RG do proprietário ou o reconhecimento de sua assinatura em cartório.</span><br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op7" onchange="register_unregister_hooked_item(this, aluguel_informal, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à situação declarada.<br>
+                        <input type="checkbox" class="alugel_informal_detail" name="alugel_informal_detail" id="alugel_informal_op8" onchange="register_unregister_hooked_item(this, aluguel_informal, 'pendente')">Pendente, este documento não foi anexado.<br>
+                        <input type="text" name="alugel_informal_detail_obs" id="alugel_informal_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, aluguel_informal, 'alugel_informal_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="alugel_informal_detail_obs_old" hidden></span><br><br>
+                    </div>
+
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento_moradia" name="tipo_de_documento_moradia" id="tipo_de_documento_moradia_05">Comprovante de moradia <b>indígenas, quilombolas, assentados</b><br>
+                    <div id="nfo_indigena_quilombola" style="margin-left: 2%;">
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op1" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada.<br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op2" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade.<br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op3" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais.<br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op4" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'incompleto_aluguel_informal_assinatura')"><span id="incompleto_aluguel_informal_assinatura">Incompleto, pendente a(s) assinatura(s) do(s) declarante(s).</span><br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op5" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'incompleto_aluguel_data')">Incompleto, pendente o registro da data de assinatura.<br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op6" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'incompleto_aluguel_informal_proprietario')"><span id="incompleto_aluguel_informal_proprietario">Incompleto, pendente o RG do proprietário ou o reconhecimento de sua assinatura em cartório.</span><br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op7" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à situação declarada.<br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op8" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'pendente_quilombola')"><b>Indígenas/Quilombolas:</b> <span id="pendente_quilombola">Pendente, anexar declaração de liderança indígena ou órgão oficial (FUNAI) sobre residência do estudante e grupo familiar ou Declaração de Aptidão ao Programa Nacional de Fortalecimento da Agricultura Familiar (DAP).</span><br>
+                        <input type="checkbox" class="indigena_quilombola_detail" name="indigena_quilombola_detail" id="indigena_quilombola_op9" onchange="register_unregister_hooked_item(this, indigena_quilombola, 'pendente_assentados')"><b>Assentamento:</b> <span id="pendente_assentados">Pendente, anexar comprovante/declaração da situação informada ou Contrato de Concessão de Uso (CCU) ou Título de Domínio (TD) ou Declaração de Aptidão ao Programa Nacional de Fortalecimento da Agricultura Familiar (DAP/PRONAF).</span><br>
+                        <input type="text" name="indigena_quilombola_detail_obs" id="indigena_quilombola_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, indigena_quilombola, 'indigena_quilombola_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="indigena_quilombola_detail_obs_old" hidden></span><br><br>
+                    </div>
+                    
+                    <input type="checkbox" onchange="display_hooked_element(this)" class="tipo_de_documento_moradia" name="tipo_de_documento_moradia" id="tipo_de_documento_moradia_04">Comprovantes de gasto (água, luz, condomínio...)<br>
+                    <div id="nfo_gastos_residencia" style="margin-left: 2%;">
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op1" onchange="register_unregister_hooked_item(this, gastos_residencia, 'inacessivel')">Inacessível, não foi possível abrir o arquivo enviado, solicito que uma nova versão seja reanexada<br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op2" onchange="register_unregister_hooked_item(this, gastos_residencia, 'ilegivel')">Ilegível, imagem distorcida, desfocada ou com baixa qualidade; <br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op3" onchange="register_unregister_hooked_item(this, gastos_residencia, 'incompleto_cortado')">Incompleto, imagem cortada ou com informações parciais;<br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op4" onchange="register_unregister_hooked_item(this, gastos_residencia, 'incorreto_nao_corresponde')">Incorreto, a documentação apresentada não corresponde à situação declarada. <br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op5" onchange="register_unregister_hooked_item(this, gastos_residencia, 'pend_luz')"><span id="pend_luz">Pendente, não foi anexado o comprovante de gastos com eletricidade.</span><br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op6" onchange="register_unregister_hooked_item(this, gastos_residencia, 'pend_agua')"><span id="pend_agua">Pendente, não foi anexado o comprovante de gastos com água.</span><br>
+                        <input type="checkbox" class="gastos_residencia_detail" name="gastos_residencia_detail" id="gastos_residencia_op7" onchange="register_unregister_hooked_item(this, gastos_residencia, 'pendente_gastos')"><span id="pendente_gastos">Pendente, não foram anexados comprovantes de gastos (contas de aguá e luz) ou quaisquer declarações que informem a inexistência desses documentos.</span><br>
+                        <input type="text" name="gastos_residencia_detail_obs" id="gastos_residencia_detail_obs" style="width: 100%; margin-left: 25px;" onchange="update_observation(this, gastos_residencia, 'gastos_residencia_detail_obs_old')" placeholder="Orientações complementares">
+                        <span id="gastos_residencia_detail_obs_old" hidden></span>
+                    </div><br><br>
+
+                <button style="font-size: large;" onclick=push_pendencias_moradia()>Inserir</button> <button id="btn_relat" style="font-size: large;" onclick=show_report()>Gerar relatório</button>
+
+            </div>
+    
+            
+            <div id="relatorio_pendencias" style="margin-right: 5%;">
+                <h2>Relatório de pendências</h2>
+                <div id="report_info"></div>
+            </div>
+
+
+        </div>
+        
+
+        <script>
+            class Person { constructor() {} };
+            class House { constructor() {} };
+
+            function el(id) {
+                return document.getElementById(id)
+            }
+
+            function elg(class_name) {
+                return document.getElementsByClassName(class_name)
+            }
+
+
+            elements_id_hooks = {
+                tipo_de_documento_00: 'nfo_orientacoes',
+                tipo_de_documento_01: 'nfo_cpf',
+                tipo_de_documento_02: 'nfo_cert_nas',
+                tipo_de_documento_03: 'nfo_rg',
+                tipo_de_documento_04: 'nfo_ensino_medio',
+                tipo_de_documento_05: 'nfo_ctps',
+                tipo_de_documento_06: 'nfo_dec_renda',
+                tipo_de_documento_07: 'nfo_contracheque',
+                tipo_de_documento_08: 'nfo_extrato',
+                tipo_de_documento_09: 'nfo_renda_informal',
+                tipo_de_documento_10: 'nfo_INSS',
+                tipo_de_documento_11: 'nfo_assistencia_social',
+                tipo_de_documento_12: 'nfo_irpf',
+                tipo_de_documento_13: 'nfo_saude',
+                tipo_de_documento_moradia_01: 'nfo_comprovante_residencia',
+                tipo_de_documento_moradia_02: 'nfo_aluguel',
+                tipo_de_documento_moradia_03: 'nfo_alugel_informal',
+                tipo_de_documento_moradia_04: 'nfo_gastos_residencia',
+                tipo_de_documento_moradia_05: 'nfo_indigena_quilombola'
+            }
+
+            let pendencias_pessoas = [];
+            let pendencias_residencias = [];
+
+            let orientacoes = [];
+            let cpf = [];
+            let cert_nas = [];
+            let rg = [];
+            let ensino_medio = [];
+            let ctps = [];
+            let dec_renda = [];
+            let contracheque = [];
+            let extrato = [];
+            let renda_informal = [];
+            let INSS = [];
+            let assistencia_social = [];
+            let irpf = [];
+            let saude = [];
+            let comprovante_residencia = [];
+            let aluguel = [];
+            let aluguel_informal = [];
+            let gastos_residencia = [];
+            let indigena_quilombola = [];
+            let report_info = "";
+
+            function remove_from_array(array, item) {
+                if ( array.indexOf(item) > -1) {
+                    array.splice(array.indexOf(item), 1)
+                }
+            }
+
+
+            function init_state_person_form() {
+                el("pessoa").value = "";
+                el("cpf_detail_obs").value = "";
+                el("cert_nas_detail_obs").value = "";
+                el("rg_detail_obs").value = "";
+                el("ensino_medio_detail_obs").value = "";
+                el("ctps_detail_obs").value = "";
+                el("dec_renda_detail_obs").value = "";
+                el("contracheque_detail_obs").value = "";
+                el("extrato_detail_obs").value = "";
+                el("renda_informal_detail_obs").value = "";
+                el("INSS_detail_obs").value = "";
+                el("assistencia_social_detail_obs").value = "";
+                el("irpf_detail_obs").value = "";
+                el("saude_detail_obs").value = "";
+                el('nfo_orientacoes').style.display = 'none';
+                el('nfo_cpf').style.display = 'none';
+                el('nfo_cert_nas').style.display = 'none';
+                el('nfo_rg').style.display = 'none';
+                el('nfo_ensino_medio').style.display = 'none';
+                el('nfo_ctps').style.display = 'none';
+                el('nfo_dec_renda').style.display = 'none';
+                el('nfo_contracheque').style.display = 'none';
+                el('nfo_extrato').style.display = 'none';
+                el('nfo_renda_informal').style.display = 'none';
+                el('nfo_INSS').style.display = 'none';
+                el('nfo_assistencia_social').style.display = 'none';
+                el('nfo_irpf').style.display = 'none';
+                el('nfo_saude').style.display = 'none';
+                el('validacao_documentos_2').style.display = 'none';
+                el('relatorio_pendencias').style.display = 'none';
+
+                checkboxes_to_clear = ["tipo_de_documento", "orientacoes_detail", "cpf_detail", "cert_nas_detail", "rg_detail", "ensino_medio_detail", "ctps_detail", "dec_renda_detail", "contracheque_detail", "extrato_detail", "renda_informal_detail", "INSS_detail", "assistencia_social_detail", "irpf_detail", "saude_detail"]
+                
+                checkboxes_to_clear.forEach((element_class_name) => {
+                    clear_radio_selection(element_class_name);
+                });
+            }
+
+            function init_state_house_form() {
+
+                el("moradia").value = "";
+                el("comprovante_residencia_detail_obs").value = "";
+                el("aluguel_detail_obs").value = "";
+                el("alugel_informal_detail_obs").value = "";
+                el("gastos_residencia_detail_obs").value = "";
+                el("indigena_quilombola_detail_obs").value = "";
+                el('nfo_comprovante_residencia').style.display = 'none';
+                el('nfo_aluguel').style.display = 'none';
+                el('nfo_alugel_informal').style.display = 'none';
+                el('nfo_gastos_residencia').style.display = 'none';
+                el('nfo_indigena_quilombola').style.display = 'none';
+
+                checkboxes_to_clear = ["tipo_de_documento_moradia", "comprovante_residencia_detail", "aluguel_detail", "alugel_informal_detail", "gastos_residencia_detail", "indigena_quilombola_detail"]
+                
+                checkboxes_to_clear.forEach((element_class_name) => {
+                    clear_radio_selection(element_class_name);
+                });
+            }
+
+            function init_state() {
+                init_state_person_form();
+                init_state_house_form();
+
+                if ( document.cookie != "instructions=true" ) {
+                    alert('Instruções para o uso validador de documentos: \n\n [1] não é suficiente marcar o tipo geral da pendencia. Dessa forma, você deve, também, "selecionar uma subcategoria de orientação" ou "registrar uma orientação personalizada" nos respectivos campos de "Orientações complementares".\n\n [2] não esqueça de fornecer um "nome/vínculo" para a pessoa ou um "identificador" para a residência. Se estas informações não forem inseridas, as orientações para aquela pessoa ou residencia não serão incluídas no relatório de pendencias.');
+                }
+
+
+            }
+
+            function display_hooked_element(element) {
+
+                if ( el(element.id).checked == true ) {
+                    el(elements_id_hooks[element.id]).style.display = 'block';
+                } else {
+                    el(elements_id_hooks[element.id]).style.display = 'none';
+                }
+                
+            }
+
+            function register_unregister_hooked_item(parent_el, register_array, target_container_id) {
+                if ( el(parent_el.id).checked == true ) {
+                    register_array.push(el(target_container_id).innerText);
+                } else {
+                    remove_from_array(register_array, el(target_container_id).innerText);
+                }
+            }
+
+            function update_observation(parent_el, register_array, target_container_id) {
+                remove_from_array(register_array, el(target_container_id).innerText)
+                register_array.push(el(parent_el.id).value)
+                el(target_container_id).innerText = el(parent_el.id).value 
+            }
+
+            function push_pendencias() {
+                if ( el('pessoa').value === "" ) {
+                    alert('Insira o nome da pessoa em questão...')
+                } else {
+                    pessoa = new Person()
+                    pessoa.nome = el('pessoa').value
+                    pessoa.orientacoes = orientacoes;
+                    pessoa.cpf = cpf;
+                    pessoa.cert_nas = cert_nas;
+                    pessoa.rg = rg;
+                    pessoa.ensino_medio = ensino_medio;
+                    pessoa.ctps = ctps;
+                    pessoa.dec_renda = dec_renda;
+                    pessoa.contracheque = contracheque;
+                    pessoa.extrato = extrato;
+                    pessoa.renda_informal = renda_informal;
+                    pessoa.INSS = INSS;
+                    pessoa.assistencia_social = assistencia_social;
+                    pessoa.irpf = irpf;
+                    pessoa.saude = saude;
+
+                    orientacoes = [];
+                    cpf = [];
+                    cert_nas = [];
+                    rg = [];
+                    ensino_medio = [];
+                    ctps = [];
+                    dec_renda = [];
+                    contracheque = [];
+                    extrato = [];
+                    renda_informal = [];
+                    INSS = [];
+                    assistencia_social = [];
+                    irpf = [];
+                    saude = [];
+
+                    pendencias_pessoas.push(pessoa)
+
+                    init_state_person_form();
+                }
+            }
+
+            function push_pendencias_moradia() {
+                if ( el('moradia').value === "" ) {
+                    alert("Insira um identificador para a residencia em questão...")
+                } else {
+                    moradia = new House()
+                    moradia.identificador = el("moradia").value
+                    moradia.comprovante_residencia = comprovante_residencia;
+                    moradia.aluguel = aluguel;
+                    moradia.aluguel_informal = aluguel_informal;
+                    moradia.gastos_residencia = gastos_residencia;
+                    moradia.indigena_quilombola = indigena_quilombola;
+
+                    comprovante_residencia = [];
+                    aluguel = [];
+                    aluguel_informal = [];
+                    gastos_residencia = [];
+                    indigena_quilombola = [];
+
+                    pendencias_residencias.push(moradia)
+
+                    init_state_house_form();
+                }
+            }
+
+            function clear_radio_selection(class_name) {
+                el_grp = elg(class_name)
+                for ( index in el_grp ) {
+                    el_grp[index].checked = false;
+                }
+            };
+
+            function show_moradia_form() {
+                if ( el('pessoa').value !== "" ) {
+                    push_pendencias();
+                }
+
+                el('validacao_documentos_1').style.display = 'none';
+                el('separator').style.display = 'none';
+                el('validacao_documentos_2').style.display = 'block';
+
+            }
+
+            function show_report() {
+                if ( el('moradia').value !== "" ) {
+                    push_pendencias_moradia();
+                }
+
+                el('validacao_documentos_2').style.display = 'none';
+                el('relatorio_pendencias').style.display = 'block';
+                build_report();
+            }
+
+
+            function build_report() {
+                if ( pendencias_pessoas.length > 0 || pendencias_residencias.length > 0) {
+                    report_info += "<h3>Obervação geral sobre correção de documentos no SIGAA</h3>"
+                    report_info += "<div style='margin-left: 2%'><ul>"
+                    report_info += "<li>O sistema aceita anexos de até 10 megas. As extensões permitidas são: pdf, png, jpg, zip e rar. Há duas alternativas para correção:"
+                    report_info += "<li style='margin-left: 2%;'>[1] Substituir documentos anteriormente anexados. Neste caso, <b>retire do sistema o arquivo anteriormente enviado e anexe a versão corrigida</b>."
+                    report_info += "<li style='margin-left: 2%;'>[2] Reúna todos os documentos pendentes em uma pasta compactada ou arquivo ZIP e anexe-o no campo 'Documentos Solicitados pelo Assistente Social'."
+                    report_info += "</ul></div>"
+                    document.cookie = "instructions=true";
+                }
+
+                
+
+                if ( pendencias_pessoas.length > 0 ) {
+                    report_info += "<h3>Pendências de documentos pessoais</h3>"
+                    pendencias_pessoas.forEach(pessoa_listada => {
+                        report_info += `<h4 style='color: red;'>${pessoa_listada.nome}</h4>`
+                        if ( pessoa_listada.orientacoes.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Orientações gerais</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.orientacoes.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.cpf.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>CPF</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.cpf.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.cert_nas.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Certidão de nascimento</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.cert_nas.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.rg.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>RG</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.rg.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.ensino_medio.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Histórico de Ensino Médio</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.ensino_medio.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.ctps.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Carteira de Trabalho (CTPS)</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.ctps.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.dec_renda.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Declaração de renda ou ausência de renda</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.dec_renda.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.contracheque.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Contracheque</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.contracheque.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.extrato.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Extrato bancário, 3 últimos meses</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.extrato.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.renda_informal.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Declaração de atividade autônoma</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.renda_informal.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.INSS.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Comprovante de recebimento de benefício/recursos do INSS</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.INSS.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.assistencia_social.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Comprovante de recebimento de benefício/recursos da Assistência Social</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.assistencia_social.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.irpf.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Declaração de Imposto de Renda</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.irpf.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( pessoa_listada.saude.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Documentos relativos aos agravos de saúde ou deficiência</h5>"
+                            report_info += "<ul>"
+                            pessoa_listada.saude.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                    });
+                }
+
+
+
+                if ( pendencias_residencias.length > 0 ) {
+                    report_info += "<h3>Pendências relativas à moradia ou gastos com moradia</h3>"
+                    pendencias_residencias.forEach(residencia_listada => {
+                        report_info += `<h4 style='color: red;'>${residencia_listada.identificador}</h4>`
+                        if ( residencia_listada.comprovante_residencia.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Comprovante de residência (IPTU, Termo de Posse...)</h5>"
+                            report_info += "<ul>"
+                            residencia_listada.comprovante_residencia.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( residencia_listada.aluguel.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Contrato formal de aluguel</h5>"
+                            report_info += "<ul>"
+                            residencia_listada.aluguel.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( residencia_listada.aluguel_informal.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Declaração de aluguel informal</h5>"
+                            report_info += "<ul>"
+                            residencia_listada.aluguel_informal.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( residencia_listada.gastos_residencia.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Comprovantes de gasto da residência declarada</h5>"
+                            report_info += "<ul>"
+                            residencia_listada.gastos_residencia.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                        if ( residencia_listada.indigena_quilombola.length > 0 ) {
+                            report_info += "<div style='margin-left: 2%'><h5>Comprovante de moradia indígenas, quilombolas, assentamentos</h5>"
+                            report_info += "<ul>"
+                            residencia_listada.indigena_quilombola.forEach(info => {
+                                report_info += `<li>${info}`
+                            });
+                            report_info += "</ul></div>"
+                        }
+                    });
+                }
+         
+                el('report_info').innerHTML = report_info
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }            
+
+        </script>
+
+        
+    </body>    
+    
+</body>
+</html>
