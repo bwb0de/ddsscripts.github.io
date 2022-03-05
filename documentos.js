@@ -14,6 +14,7 @@ VETOR_ARBITRARIO = 0.5
 
 observacao_cpf = false;
 observacao_pa = false;
+observacao_extratos = false;
 
 translator_tipo_renda = {
     tipo_vinculo_00: [22, "Servidor efetivo"],
@@ -94,7 +95,8 @@ translator_tipo_moradia = {
     tipo_imovel_01: [0, "Casa do Estudante Universitário"],
     tipo_imovel_02: [0, "Própria em aquisição"],
     tipo_imovel_03: [0, "Cedido"],
-    tipo_imovel_04: [0, "Alugado/república/pensionato"],
+    tipo_imovel_04: [0, "Alugado formalmente (república/pensionato)"],
+    tipo_imovel_13: [0, "Alugado informalmente"],
     tipo_imovel_05: [0, "De favor (morando com pessoas que não fazem parte do grupo familiar)"],
     tipo_imovel_06: [0, "Assentamento"],
     tipo_imovel_07: [0, "Comunidade quilombola"],
@@ -178,46 +180,48 @@ function push_and_show_form_moradia() {
 
     //Estrangeiro
     if (estrangeiro == "Sim, estrangeiro refugiado" ) {
-        doc_info_estudante.push("Relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
+        doc_info_estudante.push("Apresentar relatório do Banco o Central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
     
     } else if (estrangeiro == "Sim, estrangeiro não-refugiado") {
-        doc_info_estudante.push("Relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
-        doc_info_estudante.push("Declaração da embaixada informando se há ou não recebimento de bolsas/auxílios financeiros.")
+        doc_info_estudante.push("Apresentar relatório do Banco o Central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
+        doc_info_estudante.push("Apresentar declaração da embaixada informando se há ou não recebimento de bolsas/auxílios financeiros.")
     }
 
     //Deficiente
     if (com_deficiencia == "Pessoa com deficiência" ) {
-        doc_info_estudante.push("Anexar documento oficial de pessoa com deficiência ou relatório/laudo médico com CID.")
+        doc_info_estudante.push("Apresentar documento oficial de pessoa com deficiência ou relatório/laudo médico atestando a deficiência.")
     }
 
     //Pensionista
     if (pensao_alimenticia == "Não" && pais_falecidos == "Não" ) {
         if (pais_separados == "Meus pais são formalmente separados" && mais_de_24 == "Não" ) {
-            doc_info_estudante.push("Anexar comprovante de justificativa do não recebimento de pensão alimentícia... [0] se o pedido de pensão estiver em tramitação, comprovante de existência do processo com identificação das partes; [2] se a pensão tiver sido interrompida por falta de pagamento, anexe o comprovante da decisão favorável a concessão da pensão e os extratos bancários que demonstrem claramente a interrupção do repasse do recurso.")
+            doc_info_estudante.push("Apresentar justificativa do/a genitor/ra que possui a guarda do estudante, devidamente datada e assinada, explicando os motívos do não recebimento de pensão alimentícia... Além disso apresentar: [1] <b>se o pedido de pensão estiver em tramitação</b>, apresentar comprovante de existência do processo com identificação das partes; [2] <b>se a pensão tiver sido interrompida por falta de pagamento</b>, apresentar o comprovante da decisão favorável a concessão da pensão e os extratos bancários que demonstrem claramente a interrupção do repasse do recurso.")
+            observacao_extratos = true;
     
         } else if (pais_separados == "Meus pais são informalmente separados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Apresentar declaração de não recebimento de pensão, ver modelo nos anexos do edital.")
+            doc_info_estudante.push("Apresentar <a href='https://drive.google.com/file/d/15k50rSOFnHcT6f7pdltDpcdgHZY_G3rC/view?usp=sharing' target='_blank'>declaração de não recebimento de pensão</a>.")
     
         } else if (pais_separados == "Meus pais nunca foram formalmente casados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Apresentar declaração de não recebimento de pensão, ver modelo nos anexos do edital.")
-            doc_info_estudante.push("Incluir na questão número [18] do Cadastro Único (SIGAA) os motivos de não ter solicitado pensão formal.")
+            doc_info_estudante.push("Apresentar <a href='https://drive.google.com/file/d/15k50rSOFnHcT6f7pdltDpcdgHZY_G3rC/view?usp=sharing' target='_blank'>declaração de não recebimento de pensão</a>.")
+            doc_info_estudante.push("Incluir na questão aberta do Cadastro Único (SIGAA) os motivos de não ter iniciado o processo de solicitação de pensão alimentícia formal.")
         }
 
     } else if (pensao_alimenticia == "Sim") {
         if (pais_separados == "Meus pais são formalmente separados" && mais_de_24 == "Não" ) {
-            doc_info_estudante.push("Anexar cópia da decisão judicial em favor da pensão e comprovantes que atestem o valor transferido.")
+            doc_info_estudante.push("Apresentar cópia da decisão judicial em favor da pensão alimentícia junto com os comprovantes (extratos bancários ou contracheques) que indiquem o valor da pensão.")
+            observacao_extratos = true;
     
         } else if (pais_separados == "Meus pais são informalmente separados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_estudante.push("Apresentar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, com comprovantes que atestem o valor transferido (comprovante de transferência bancária).")
     
         } else if (pais_separados == "Meus pais nunca foram formalmente casados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_estudante.push("Apresentar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, com comprovantes que atestem o valor transferido (comprovante de transferência bancária).")
         }
     }
 
     //Pais falecidos
     if (pais_falecidos == "Sim" ) {
-        doc_info_estudante.push("Anexar certidão de óbito do genitor falecido.")
+        doc_info_estudante.push("Apresentar certidão de óbito do genitor ou genitora falecido/a.")
     }
     
     document.getElementById('form_estudante').remove();
@@ -254,29 +258,28 @@ function push_moradia() {
     tmp_array = []
 
     if ( moradia_tipo == "Próprio quitado" ) {
-        tmp_array.push("Anexar IPTU e comprovantes de gastos da residência: agua, luz, telefone.")
+        tmp_array.push("Apresentar IPTU e comprovantes de gastos desta residência: agua, luz, telefone.")
 
     } else if ( moradia_tipo == "Casa do Estudante Universitário" ) {
-        tmp_array.push("Informar situação de moradia na questão [18] do Cadastro Único.")
+        tmp_array.push("Informar situação de moradia no Cadastro Único (SIGAA).")
 
     } else if ( moradia_tipo == "Própria em aquisição" ) {
-        tmp_array.push("Apresentar boleto de pagamento do financiamento.")
+        tmp_array.push("Apresentar boleto de pagamento do financiamento com o valor da parcela.")
 
     } else if ( moradia_tipo == "Cedido" ) {
-        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/17NKJRJh2pogTpn65cD5I4YqYbiTVeanW/view?usp=sharing' target='_blank'>declaração de residência em Imóvel Cedido</a>, conforme o edital, com a cópia do RG do cedente ou com reconhecimento da assinatura em cartório.")
+        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/17NKJRJh2pogTpn65cD5I4YqYbiTVeanW/view?usp=sharing' target='_blank'>declaração de residência em Imóvel Cedido</a>, conforme o edital, com a cópia do RG do cedente ou com reconhecimento da assinatura do cedente do imóvel em cartório.")
 
-    } else if ( moradia_tipo == "Alugado/república/pensionato" ) {
+    } else if ( moradia_tipo == "Alugado formalmente (república/pensionato)" ) {
         tmp_array.push("Apresentar contrato de aluguel vigente em que conste o valor da locação.")
 
     } else if ( moradia_tipo == "Alugado informalmente" ) {
-        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/1ThKt4pauvj9XAm5NJSHtEF-Nl2TDzgo3/view?usp=sharing' target='_blank'>declaração de aluguel informal</a>, conforme orientações do edital. No caso do aluguel ser compartilhado com outros, indicar o valor da parcela paga na questão [18] do Cadastro Único.")
-
+        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/1ThKt4pauvj9XAm5NJSHtEF-Nl2TDzgo3/view?usp=sharing' target='_blank'>declaração de aluguel informal</a>, conforme orientações do edital. No caso do aluguel ser compartilhado/dividido com outras pessoas, indicar o valor da parcela paga na questão aberta do Cadastro Único (SIGAA).")
 
     } else if ( moradia_tipo == "De favor (morando com pessoas que não fazem parte do grupo familiar)" ) {
         tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/1xhXYmt7RO_5_6JDO4h7VCQd-PDTpXE57/view?usp=sharing' target='_blank'>declaração de residência de Moradia com Outros</a> (“de favor”), conforme o edital, com a cópia do documento de identificação do declarante ou com firma reconhecida em cartório.")
 
     } else if ( moradia_tipo == "Assentamento" ) {
-        tmp_array.push("Para assentados, apresentar comprovante/declaração da situação informada ou Contrato de Concessão de Uso (CCU) ou Título de Domínio (TD) ou Declaração de Aptidão ao Programa Nacional de Fortalecimento da Agricultura Familiar (DAP/PRONAF).")
+        tmp_array.push("Apresentar comprovante/declaração da situação informada ou Contrato de Concessão de Uso (CCU) ou Título de Domínio (TD) ou Declaração de Aptidão ao Programa Nacional de Fortalecimento da Agricultura Familiar (DAP/PRONAF).")
 
     } else if ( moradia_tipo == "Comunidade quilombola" ) {
         tmp_array.push("Apresentar declaração de pertencimento à comunidade declarada.")
@@ -288,13 +291,13 @@ function push_moradia() {
         tmp_array.push("Apresentar termo de cessão de direitos da propriedade ou comprovante/declaração da situação informada.")
 
     } else if ( moradia_tipo == "Moradia com risco de remoção sub judice" ) {
-        tmp_array.push("Apresentar decisão judicial ou notificação de órgão público responsável sobre a determinação da desocupação da área (moradia com risco de remoção).")
+        tmp_array.push("Apresentar decisão judicial que confirme o risco de remoção ou notificação de órgão público responsável sobre a determinação da desocupação da área (moradia com risco de remoção).")
 
     } else if ( moradia_tipo == "Sem moradia, em situação de rua" ) {
         tmp_array.push("Declaração de atendimento emitida pelo Centro de Referência para População em Situação de Rua (Centro Pop) ou autodeclaração do estudante.")
 
     } else if ( moradia_tipo == "Outra situação de moradia" ) {
-        tmp_array.push("Solicitar entrevista com profissional pelo email sps@unb.br.")
+        tmp_array.push("Solicitar entrevista com o/a profissional responsável pelo seu estudo ou pelo email coae.dds@unb.br.")
     }
 
     doc_info_moradia[moradia_ident] = tmp_array
@@ -346,21 +349,20 @@ function push_family_member() {
 
 function family_member_documentation(member) {
     doc_info_grupo_familiar[member.nome] = []
-
+    observacao_cpf = true;
     if ( member.idade < 24 ) {
         observacao_pa = true;
     }
 
     if ( member.idade < 14 ) {
-        doc_info_grupo_familiar[member.nome].push("Apresentar RG (frente e verso) ou certidão de nascimento. O número de CPF é necessário para incluir o integrante familiar no sistema.");
-        observacao_cpf = true;
+        doc_info_grupo_familiar[member.nome].push("Apresentar RG (frente e verso) e CPF. Na hipótese de inexistência destes documentos, apresentar certidão de nascimento. Caso a certidão de nascimento não contenha o CPF da pessoa, apresentar documento do CPF (o número de CPF é necessário para incluir o integrante familiar no SIGAA).");
     } else {
-        doc_info_grupo_familiar[member.nome].push("Apresentar RG (frente e verso) e CPF.");
+        doc_info_grupo_familiar[member.nome].push("Apresentar documento de identificação com foto (RG, frente e verso, CNH, ou equivalente) com assinatura usualmente utilizada por essa pessoa. Na hipotese de inexistencia deste documento, apresentar certidão de nascimento. Caso o documento apresentado não contenha o CPF da pessoa, apresentar documento do CPF (o número de CPF é necessário para incluir o integrante familiar no SIGAA).");
         //doc_info_grupo_familiar[member.nome].push("Apresentar carteira de trabalho: página da foto, qualificação civil e páginas dos 'contratos de trabalho' (último registro de trabalho e a próxima página em branco) se não possuí, apresentar declaração de não possuí-la (modelo no edital).");
         if ( member.irpf == "Sim" ) {
-            //doc_info_grupo_familiar[member.nome].push("Anexar o recibo e a declaração de imposto de renda completa (todas as páginas)")
+            //doc_info_grupo_familiar[member.nome].push("Apresentar o recibo e a declaração de imposto de renda completa (todas as páginas)")
         } else {
-            //doc_info_grupo_familiar[member.nome].push("Acessar a página de <a href='https://servicos.receita.fazenda.gov.br/Servicos/ConsRest/Atual.app/paginas/index.asp' target='_blank'>Consulta de Restituição de IRPF, no site da Receita Federal</a> e preencher os dados solicitados referente ao último ano/ exercício vigente. Anexar o print da tela com a mensagem “<i>sua declaração não consta da base de dados da receita federal</i>")
+            //doc_info_grupo_familiar[member.nome].push("Acessar a página de <a href='https://servicos.receita.fazenda.gov.br/Servicos/ConsRest/Atual.app/paginas/index.asp' target='_blank'>Consulta de Restituição de IRPF, no site da Receita Federal</a> e preencher os dados solicitados referente ao último ano/ exercício vigente. Apresentar o print da tela com a mensagem “<i>sua declaração não consta da base de dados da receita federal</i>")
         }
     }
     member.renda = member.renda.split("; ")
@@ -379,64 +381,77 @@ function family_member_documentation(member) {
             doc_info_grupo_familiar[member.nome].push("Apresentar cópia dos três contracheques mais recentes.");
         
         } else if ( member.renda[i] == "Microempreendedor" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de rendimento conforme modelo do edital ou pró labore + extratos bancários dos últimos três meses");
+            doc_info_grupo_familiar[member.nome].push("Declaração de rendimento conforme modelo do edital ou pró labore + extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses.");
+            observacao_extratos = true;
     
         } else if ( member.renda[i] == "Atividade produção agrícola" ) {
             doc_info_grupo_familiar[member.nome].push("Declaração do Imposto Territorial Rural - ITR + declaração de rendimento ou Declaração do Sindicato Rural da região sobre atividade exercida e renda mensal")
     
         } else if ( member.renda[i] == "Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados" ) {
-            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
+            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses. Caso não possua conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa de vinculação com o sistema financeiro emitida pelo página do Banco Central</a>.")
+            observacao_extratos = true;
     
         } else if ( member.renda[i] == "Trabalho formal" ) {
             doc_info_grupo_familiar[member.nome].push("Apresentar cópia dos três contracheques mais recentes.");
         
         } else if ( member.renda[i] == "PA formal" ) {
-            doc_info_grupo_familiar[member.nome].push("Anexar cópia da decisão judicial em favor da pensão e comprovantes que atestem o valor transferido.");
+            doc_info_grupo_familiar[member.nome].push("Apresentar cópia da decisão judicial em favor da pensão alimentícia junto com os comprovantes (extratos bancários ou contracheques) que indiquem o valor da pensão.");
+            observacao_extratos = true;
         
         } else if ( member.renda[i] == "Estágio" ) {
             doc_info_grupo_familiar[member.nome].push("Apresentar comprovante de recebimento da bolsa de estágio ou contrato de estágio vigente, desde que o valor esteja descrito no documento.")
         
         } else if ( member.renda[i] == "Bolsa Acadêmica" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de recebimento da bolsa acadêmica com o respectivo valor emitida pelo órgão competente")
+            doc_info_grupo_familiar[member.nome].push("Informar que esta pessoa recebe Bolsa Acadêmica no Cadastro Único (SIGAA) e preencher adequadamente o campo renda na definição do grupo familiar")
         
         } else if ( member.renda[i] == "Bolsa pós-graduação" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de recebimento da bolsa acadêmica com o respectivo valor emitida pelo órgão competente")
+            doc_info_grupo_familiar[member.nome].push("Informar que esta pessoa recebe Bolsa Acadêmica no Cadastro Único (SIGAA) e preencher adequadamente o campo renda na definição do grupo familiar")
         
         } else if ( member.renda[i] == "Bolsa PNAES" ) {
-            doc_info_grupo_familiar[member.nome].push("Informar, na questão 18 do formulário do Cadastro Único, as bolsas recebidas. Considerar, no ato do preenchimento dos valores das rendas dos integrantes da familia os valores dos programas: Auxílio Socioeconômico, Auxílio Creche e Bolsa Permanência.")
+            doc_info_grupo_familiar[member.nome].push("Informar as bolsas de Assistencia Estudantil recebidas no Cadastro Único (SIGAA) e preencher adequadamente o campo renda na definição do grupo familiar especialmente se o programa recebido for um dos seguintes: Auxílio Socioeconômico, Auxílio Creche e Bolsa Permanência MEC.")
         
         } else if ( member.renda[i] == "PA informal" ) {
-            doc_info_grupo_familiar[member.nome].push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_grupo_familiar[member.nome].push("Informar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, com comprovantes que atestem o valor transferido.")
         
         } else if ( member.renda[i] == "Assistência Social" ) {
-            doc_info_grupo_familiar[member.nome].push("Apresentar comprovante mais recente, com o respectivo valor, referente ao recebimento de Benefício de Assistência Social (Bolsa Familia, BPC ou outros benefícios semelhantes...)")
+            doc_info_grupo_familiar[member.nome].push("Apresentar comprovante mais recente, com o respectivo valor, referente ao recebimento de Benefício de Assistência Social (Bolsa Familia, Auxílio Brasil, BPC ou outros benefícios semelhantes...)")
             
         } else if ( member.renda[i] == "Autônomo" ) {
-            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
+            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses. Caso não possua conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa de vinculação com o sistema financeiro emitida pelo página do Banco Central</a>.")
+            observacao_extratos = true;
             
         } else if ( member.renda[i] == "Poupança" ) {
-            doc_info_grupo_familiar[member.nome].push("Extrato bancário da poupança referente aos três últimos meses.")
+            doc_info_grupo_familiar[member.nome].push("Apresentar extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses.")
+            observacao_extratos = true;
 
         } else if ( member.renda[i] == "INSS" ) {
             doc_info_grupo_familiar[member.nome].push("Apresentar extrato do benefício do INSS.")
             
         } else if ( member.renda[i] == "Ajuda de terceiros" ) {
-            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1OJJKkGYUwz6s-2FJQdfgfyADD5grJPdT/view?usp=sharing' target='_blank'>Declaração de renda referente ao recebimento de ajuda de terceiros</a> (ver modelo no edital), redigida por quem repassa o recurso informando o valor + cópia do RG do declarante ou reconhecimento de firma do declarante em cartório")
+            doc_info_grupo_familiar[member.nome].push("Para doações recebidas em espécie (dinheiro vivo), apresentar <a href='https://drive.google.com/file/d/1OJJKkGYUwz6s-2FJQdfgfyADD5grJPdT/view?usp=sharing' target='_blank'>declaração de renda referente ao recebimento de ajuda de terceiros</a> (ver modelo no edital), <b>redigida por quem repassa o recurso</b> informando o valor + cópia do RG do declarante ou reconhecimento de firma do declarante em cartório. Na hipótese de multiplas doações realizadas via conta bancária apresentar declaração do beneficiário informando o valor total recebido como doação + extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses, de forma a indicar os valores doados.")
+            observacao_extratos = true;
             
         } else if ( member.renda[i] == "Seguro-desemprego" ) {
-            doc_info_grupo_familiar[member.nome].push("Espelho do recebimento do benefício com o valor do benefício a ser pago e em quantas parcelas")
+            doc_info_grupo_familiar[member.nome].push("Apresentar o espelho do recebimento do benefício com o valor do benefício a ser pago e em quantas parcelas")
             
         } else if ( member.renda[i] == "Sem renda" ) {
             if ( member.idade > 18) {
-                doc_info_grupo_familiar[member.nome].push("Extratos bancários dos 3 últimos meses + <a href='https://drive.google.com/file/d/1Rlit43OMdjdx2-s-zVRU63kxqrCzN-1R/view?usp=sharing' target='_blank'>declaração de não possuir renda</a> conforme modelo do edital. Na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
+                doc_info_grupo_familiar[member.nome].push("Apresentar <a href='https://drive.google.com/file/d/1Rlit43OMdjdx2-s-zVRU63kxqrCzN-1R/view?usp=sharing' target='_blank'>declaração de não possuir renda</a> conforme modelo do edital + extratos de todas as contas bancárias (conta corrente, poupança, salário...) ou carteiras digitais (NU Bank, Banco Inter...) que possuir relativo aos últimos três meses. Caso não possua conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa de vinculação com o sistema financeiro emitida pelo página do Banco Central</a>.")
+                observacao_extratos = true;
             }
             
         }
     }
-    
+
 
     if ( member.saude.split(";")[0] != "Sem agravo" ) {
+        //doc_info_grupo_familiar[member.nome].push("Relatório ou laudo médico ou psicológico, com o número da CID")
+    } else if ( member.saude.split(";")[0] != "Doença crônica" ) {
         doc_info_grupo_familiar[member.nome].push("Relatório ou laudo médico ou psicológico, com o número da CID")
+    } else if ( member.saude.split(";")[0] != "Doença grave" ) {
+        doc_info_grupo_familiar[member.nome].push("Relatório ou laudo médico ou psicológico, com o número da CID")
+    } else {
+        doc_info_grupo_familiar[member.nome].push("Apresentar documento oficial de pessoa com deficiência ou relatório/laudo médico atestando a deficiência.")
     }
 
     
@@ -671,11 +686,16 @@ function load_doc_hint_info() {
         output += "<li>Caso existam integrantes no grupo familiar com idade inferior a 24 anos e cujos genitores estejam separados, será necessário apresentar comprovantes de recebimento ou não recebimento de pensão alimentícia, nos termos do edital.";
     }
     if ( observacao_cpf ) {
-        output += "<li>É possível solicitar um número de CPF nas agências dos Correios, veja a orientação <a href='https://www.correios.com.br/atendimento/para-o-cidadao/cpf#tab-2' target='_blank'>aqui</a> "; 
+        output += "<li>Caso você possua integrantes no seu grupo familiar que não possuem CPF, clique <a href='https://www.gov.br/pt-br/servicos/inscrever-no-cpf' target='_blank'>aqui para saber como fazê-lo. O cadastro de integrantes do grupo familiar no SIGAA exige que a pessoa em questão possua CPF."; 
     }
+    if ( observacao_extratos ) {
+        output += "<li>Os extratos bancários apresentados devem conter numa mesma imagem e sem montagem as informações do titular e da movimentação da conta. Em geral os extratos fornecidos pelos caixas eletrônicos atendem a estes requisitos. Informamos, ainda, que quaisquer divergências entre os extratos e a renda declarada devem ser explicadas mediante declaração própria, devidamente assinada e datada. Se for necessário apresentar esta declaração, ela deve ser anexada como 'Documentos Solicitados pelo Assistente Social'."
+        output += "<li>As declarações explicativas, que respondem às dúvidas levantadas no estudo, devem ser devidamente assinadas e datadas pelo declarante. Elas podem ser digitadas ou escritas a próprio punho e, posteriormente, anexadas no seu cadastro único como 'Documentos Solicitados pelo Assistente Social'."
+    }
+
     output += "<li>Orientações sobre a criação de PDFs com múltiplas páginas: usando <a href='https://www.youtube.com/watch?v=HXEPv-GkHJE'  target='_blank'>celular</a> ou o <a href='https://www.youtube.com/watch?v=rUTKzSrWIcQ' target='_blank'>computador</a>.";
+    output += "<li>Orientações sobre a <a href='https://www.youtube.com/watch?v=eJn6M0Fi_Xw' target='_blank'>criação de arquivos ZIP</a> (arquivo com outros arquivos dentro).";
     output += "<li>Esta é uma listagem preliminar, a análise das informações registradas no cadastro e nos documentos podem indicar a necessidade de solicitar documentações adicionais.";
-    output += "<li>Em caso de dúvidas, solicite atendimento mediante o email <b>sps@unb.br</b> ou leia nossa página de <a href='https://unbbr-my.sharepoint.com/:w:/g/personal/lemgruber_unb_br/EXZknwWFk7tMqghclCUo0osBXO6l98ATm8OBAM5mygJ4nQ?rtime=3Ph-zWbC2Eg'  target='_blank'>perguntas e respostas</a>.";
     output += "</ul>";
 
     return output
