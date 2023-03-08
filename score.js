@@ -29,6 +29,7 @@ translator_tipo_renda = {
     tipo_vinculo_16: [4.4, "Autônomo"],
     tipo_vinculo_17: [2.64, "Poupança"],
     tipo_vinculo_18: [2.64, "Seguro-desemprego"],
+    tipo_vinculo_20: [2.64, "Ajuda de terceiros"],
     tipo_vinculo_19: [0, "Sem renda"]
 }
 
