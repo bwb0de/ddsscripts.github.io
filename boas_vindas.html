@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Responsiva com Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'OpenDyslexic';
+            src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/font/otf/OpenDyslexic-Regular.otf') format('opentype');
+        }
+        body {
+            font-family: 'OpenDyslexic', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-8 py-16">
+        <h1 class="text-6xl font-bold text-center mb-10">Bem-vind@ à UnB/FUP!</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.unb.br%2Fimages%2FDestaque%2F01022016_Institucional_LGPrado.jpg&f=1&nofb=1&ipt=bfe65d6a85783e0ea4b98e701d28ca74017ae362a8cabb7b0e703d03fd357fd4&ipo=images" alt="Imagem 1" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Conheça a UnB</h2>
+                    <p class="text-gray-800 p-4">
+                        A Universidade de Brasília (UnB) é uma das principais instituições de ensino superior do Brasil.
+                        Fundada em 1962, resultado do sonho e do trabalho de educadores como <a href="https://pt.wikipedia.org/wiki/Darcy_Ribeiro" target="_blank" class="text-blue-700">Darcy Ribeiro</a> e 
+                        <a href="https://pt.wikipedia.org/wiki/An%C3%ADsio_Teixeira" target="_blank" class="text-blue-700">Anísio Teixeira</a>, é concebida como um centro de
+                        excelência para a formação acadêmica e o desenvolvimento científico.</p>
+
+                    <p class="text-gray-800 p-4">
+                        Na UnB, o <b>ensino</b> é enriquecido pela <b>pesquisa</b>, que gera conhecimento novo, e pela <b>extensão</b>,
+                        que aplica esse conhecimento na prática, impactando positivamente a sociedade. É reconhecida como um dos maiores 
+                        centros de pesquisa no Brasil e possui uma forte tradição em movimentos estudantis sendo um símbolo importante
+                        da educação superior pública. </p>
+
+                    <p class="text-gray-800 p-4">
+                        As decisões mais importantes e normativas internas são construídas e decididas por meio de órgãos coletivos,
+                        as <b>câmaras</b>, <b>concelhos</b>, <b>comissões</b> e <b>fóruns</b>, organizados conforme temáticas específicas. 
+                        Exemplos: Câmara de Assuntos Comunitários (CAC), Concelho de Ensino e Pesquisa (CEP), Conselho Administrativo (CAD),
+                        Comissãode Acompanhamento da Política de Assistência Estudantil (COPAES)...</p>
+
+                    <p class="text-gray-800 p-4">
+                        A Universidade de Brasília é multicampi desde 2006, quando foi inaugurada a Faculdade UnB Planaltina (FUP), 
+                        primeiro campus fora do Plano Piloto. Além FUP existem, no momento, mais outros dois campi Faculdade do Gama (FGA)
+                        e a Faculdade de Ceilândia (FCE).
+
+                        Acesse o <a href="https://www.unb.br/" target="_blank" class="text-blue-700">portal da UnB</a> e conheça mais sobre a sua <a href="https://www.unb.br/acesso-a-informacao/institucional" target="_blank" class="text-blue-700">estrutura organizacional</a>.
+                    
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Funbimagens.unb.br%2Fimages%2F20240516_fup-18-anos_betomonteiro_940x450_13.jpg&f=1&nofb=1&ipt=ba605d51dec520015111c8c8bbf74976c6b07b5ccd5cf662cfee993f5ff8b639&ipo=images" alt="Imagem 2" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Conheça a FUP</h2>
+                    <p class="text-gray-800 p-4">
+                        O campus de Planaltina, Faculdade UnB Planaltina ou simplesmente FUP, existe desde 2006 e é reconhecido pela sua 
+                        perspectiva interdisciplinar bem como pelas suas atividades e projetos de extensão. Enquanto uma unidade acadêmica
+                        relativamente autônoma, FUP também possui instâncias coletivas para pensar e decidir suas normas e ações internas.
+                        Constituem exemplos dessas instâncias o Colegiado de Graduação, o Colegiado de Pós-graduação, Concelho Comunitário,
+                        o Conselho de Extensão e o Concelho da FUP. Nos três primeiros, há <b>previsão regimental de participação de estudantes</b>.</p>
+
+                    <p class="text-gray-800 p-4">
+                        Além das salas de aula a FUP dispõe de laboratórios, biblioteca, quadra esportiva, restaurante universitário e 
+                        alojamento estudantil.
+
+                        Acesse o <a href="http://fup.unb.br/" target="_blank" class="text-blue-700">portal da FUP</a>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg2.migalhas.com.br%2F_MEDPROC_%2Fhttps__img.migalhas.com.br__SL__gf_base__SL__empresas__SL__MIGA__SL__imagens__SL__2022__SL__10__SL__18__SL__814de37c-796d-4449-813e-4a5cfeec2de5.jpg._PROC_CP65.jpg&f=1&nofb=1&ipt=75feabd475afb2a7e655ab425983eb547ff16f7b4a2fed323af888200af76898&ipo=images" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Centros Acadêmicos FUP</h2>
+                    <p class="text-gray-800 p-4">
+                        Os centros acadêmicos são agremiações estudantis previstas para cada curso. São constituidos e formalmente reconhecidos
+                        pela UnB a partir de um conjunto de exigências, dentre elas seus estatutos. Constituem importantes canais para troca
+                        de experiência entre os estudantes e para representação dos interesses estudantis junto ao Conselho das Entidades de Base (CEB).</p>
+
+                    <p class="text-gray-800 p-4">
+                        A gestão dos centros acadêmicos é decidida por meio de processo eleitoral próprio organizado pelos estudantes e 
+                        conforme as orientações de seu estatuto.</p>
+                        
+                    <p class="text-gray-800 px-4">
+                        As páginas dos centros acadêmicos da FUP:</p>
+                        <p class="text-gray-800 px-8"> - Educação do Campo</p>
+                        <p class="text-gray-800 px-8"> - Ciências Naturais </p>
+                        <p class="text-gray-800 px-8"> - Gestão Ambiental </p>
+                        <p class="text-gray-800 px-8 pb-4"> - Gestão do Agronegócio </p>
+
+                    <p class="text-gray-800 p-4">
+
+                        O Diretório Central dos Estudantes (DCE) Honestino Guimarães é a entidade representativa do conjunto de estudantes da UnB. 
+                        As decisões tomadas pelo CEB são levadas como demandas estudantis para a administração superior da Universidade pelo DCE
+                        Os menbros do DCE são definidos por processo eleitoral organizado entre os estudantes e por seus respectivos CAs.
+                        Acesso o <a href="https://www.instagram.com/dceunb/" target="_blank" class="text-blue-700">página do DCE no Instagram</a></p>
+    
+
+                        
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="fup_salas.jpeg" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Coordenações de Curso FUP</h2>
+                    <p class="text-gray-800">Este é o conteúdo do Card 3.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="/aes_baner.jpg" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Assistência estudantil</h2>
+                    <p class="text-gray-800 p-4">
+                        Em sentido amplo, a assistência estudantil é compreendida como um <b>direito</b> d@s estudantes sendo constituída por estratégias
+                        ou programas de diversos setores e que têm por finalizade favorecer a permanência e a experiência formativa, com vista à ampliação da qualidade e do bem-estar. Acesse aqui um <a href="assistencia_estudantil.html" class="text-blue-700">conjunto 
+                        amplo de informações sobre assistência estudantil</a> como por exemplo: acolhimento, orientação acadêmica educacional e mediação de conflitos; passe estudantil; mudança de curso;
+                        revisão de mensão; exercício domiciliar; aproveitamente de estudo; trancamentos (parciais e gerais)...</p>
+
+                    <p class="text-gray-800 p-4">
+                        Em sentido mais estrito, a assistência estudantil é constituída por serviços e bolsas que têm entre seus objetivos 
+                        assegurar a parmanência de estudantes de grupos específicos ou com baixa renda na universidade. Funtamenta-se na 
+                        <a href="https://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2024/Lei/L14914.htm" target="_blank" class="text-blue-700">Lei nº 14914 de 2024</a> entrer outras normativas institucionais, sendo a 
+                        <a href="https://dds.dac.unb.br/images/relatorios/Poltica_de_Assistncia_Estudantil_da_Universidade_de_Braslia.pdf" target="_blank" class="text-blue-700">
+                        Política de Assistência Estudanil (PAES)</a> a norma máxima no âmbito da UnB. Nesse sentido estrito, a 
+                        <a href="https://dds.dac.unb.br/" target="_blank" class="text-blue-700">Diretoria de Desenvolvimento Social (DDS)</a>, vinculada ao 
+                        <a href="https://www.dac.unb.br/" target="_blank" class="text-blue-700">Decanato de Assuntos Comunitários (DAC)</a>, reune uma série de 
+                        programas com a finalidade de atender demandas diversas que possam colocar em risco a continuidade dos estudos. 
+                        O acesso a essas estratégias/serviços é regulado por meio de editais e exige a realização de uma avaliação socioeconômica.</p>
+
+                    <p class="text-gray-800 p-4">
+                        A avaliação socioeconômica, por sua vez, envolve um conjunto de procedimentos, conduzidos por assistentes sociais da UnB,
+                        com objetivo de identificar necessidades dos estudantes e a quais programas possuem perfil. Os procedimentos envolvem
+                        análise de informações fornecidas mediante o cadastro único do SIGAA, análise de documentos, entrevista e, eventualmente, 
+                        visitas domiciliares.</p>
+
+                    <p class="text-gray-800 p-4">
+                        Orientações gerais sobre os programas e avaliação socioeconômica podem ser encontradas na seção de 
+                        <a href="https://dds.dac.unb.br/fale-conosco" target="_blank" class="text-blue-700">perguntas frequentes</a> da página da DDS. Há também um video com
+                        <a href="https://www.youtube.com/watch?v=d9DpDPwTlgI&t=1s" target="_blank" class="text-blue-700">orientações sobre o processo de inscrição na avaliação 
+                        socioeconômica e nos programas da DDS</a>.
+                    </p>
+
+
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.watplast.com.br%2Fwp-content%2Fuploads%2F2020%2F01%2Fsimbolo-acessibilidade-educacional.jpg&f=1&nofb=1&ipt=86b039514355d7fd6ebb669b8491b8b6b0daea0600bcfff9d3abff05b7750ea0&ipo=images" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Acessibilidade</h2>
+                    <p class="text-gray-800 p-4">A acessibilidade constitui uma outra estratégia de assistência estudantil, não diretamente vinculada à DDS, mas 
+                        que tem por papel fornecer recursos e serviços para o suporte de estudantes com definiência no âmbito da instituição.</p>
+
+                    <p class="text-gray-800 p-4">A <a href="https://www.acessibilidade.unb.br/" target="_blank" class="text-blue-700">Diretoria de Acessibilidade (DACES)</a> também está vinculada 
+                        ao DAC e possui editais próprios para envolvimento de estudantes em projetos de tutoria entre outros. Estudantes com deviciência devem 
+                        solicitar sua vinculação ao cadastro do DACES para que tenham condições de ser assistidos pelas ações de acessibilidade.</p>
+
+                    <p class="text-gray-800 p-4">
+                        Para fazer isso o estudante deve, no SIGAA, acessar o menu "Outros" depois "Necessidades Educacionais Especiais" e, em seguida, "Solicitar
+                        apoio à DACES".
+                    </p>
+                        
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.colegioweb.com.br%2Fwp-content%2Fuploads%2F2014%2F12%2FEstudantes-de-f%25C3%25ADsica-criam-um-planet%25C3%25A1rio-infl%25C3%25A1vel-e-itinerante.jpg&f=1&nofb=1&ipt=5e6d401b30e2c92a0b981b9e72d26841e9e3d1bd5d3eb0c375d35512d217f0a7&ipo=images" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Atividades de extensão</h2>
+                    <p class="text-gray-800">Este é o conteúdo do Card 3.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://fup.edu.co/wp-content/uploads/destacado-4.jpg" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Biblioteca</h2>
+                    <p class="text-gray-800">Este é o conteúdo do Card 3.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-md overflow-hidden">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fnoticias.unb.br%2Fimages%2FNoticias%2F2018%2F05-Mai%2F070518_SUMMAE_DIVULGACAO.jpg&f=1&nofb=1&ipt=bb3f3e692b54f0b27ba56cdbd18c186db1727845547aab95687df733cfb6b17d&ipo=images" alt="Imagem 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg text-center font-bold mb-2 p-6">Arte e cultura</h2>
+                    <p class="text-gray-800">Este é o conteúdo do Card 3.</p>
+                </div>
+            </div>
+
+
+            <!-- Adicione mais cards conforme necessário -->
+        </div>
+    </div>
+</body>
+</html>
